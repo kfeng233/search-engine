@@ -6,11 +6,12 @@ import math
 def reduce_one_group(key, group):
     """Reduce one group."""
     total_tf = 0
+    n_factor = 0
     lines = list(group)
     for line in lines:
         tf, term, idf = line.partition("\t")[2].split()
         total_tf += (int)(tf)
-    n_factor = (float)(idf) ** 2 * total_tf
+        n_factor += (float)(idf) ** 2 * (int)(tf)
     for line in lines:
         tf, term, idf = line.partition("\t")[2].split()
         tf = (int)(math.sqrt((int)(tf)))
