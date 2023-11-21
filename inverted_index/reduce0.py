@@ -10,7 +10,7 @@ def reduce_one_group(key, group):
     for line in group:
         num = line.partition("\t")[2]
         total_num += int(num)
-    print(f"{key} {total_num}")
+    print(f"{total_num}")
 
 
 def keyfunc(line):

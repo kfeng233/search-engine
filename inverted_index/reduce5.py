@@ -4,12 +4,18 @@ import itertools
 
 def reduce_one_group(key, group):
     """Reduce one group."""
-    documents = []
-    for line in group:
-        doc_id, tf, n_factor = line.partition("\t")[2].split()
-        documents.append((doc_id, tf, n_factor))
-    print(f"{key} {documents}")
-        
+    lines = list(group)
+    terms = {}
+    for line in lines:
+        term, doc_id, idf, tf, n_factor = line.partition("\t")[2].split()
+        if (term, idf) in terms:
+            terms[(term, idf)].append((doc_id, tf, n_factor))
+        else:
+            terms[(term, idf)] = [(doc_id, tf, n_factor)]
+    for item, values in terms.items():
+        term, idf = item
+        result = ' '.join([f"{doc_id} {tf} {n_factor}" for doc_id, tf, n_factor in values])
+        print(f"{term} {idf} {result}")
 
 
 def keyfunc(line):

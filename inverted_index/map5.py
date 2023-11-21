@@ -4,4 +4,5 @@ import sys
 documents = []
 for line in sys.stdin:
     term, idf, doc_id, tf, n_factor = line.split()
-    print(f"{term} {idf}\t{doc_id} {tf} {n_factor}")
+    segment = (int)(doc_id)%3
+    print(f"{segment}\t{term} {doc_id} {idf} {tf} {n_factor}")
