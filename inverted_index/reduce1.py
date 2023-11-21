@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-"""Reduce 0."""
 import sys
 import itertools
 
 
 def reduce_one_group(key, group):
     """Reduce one group."""
-    total_num = 0
+    word_count = 0
     for line in group:
-        num = line.partition("\t")[2]
-        total_num += int(num)
-    print(f"{key} {total_num}")
+        count = line.partition("\t")[2]
+        word_count += (int)(count)
+    print(f"{key} {word_count}")
 
 
 def keyfunc(line):

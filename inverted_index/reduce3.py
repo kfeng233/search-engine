@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-"""Reduce 0."""
 import sys
 import itertools
-
+import math
 
 def reduce_one_group(key, group):
     """Reduce one group."""
-    total_num = 0
     for line in group:
-        num = line.partition("\t")[2]
-        total_num += int(num)
-    print(f"{key} {total_num}")
+        total_docs, df, documents = (line.partition("\t")[2]).split(maxsplit=2)
+        documents = eval(documents)
+        idf = math.log10((int)(total_docs) / (int)(df))
+        print(f"{key} {idf} {documents}")
 
 
 def keyfunc(line):
