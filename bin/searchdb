@@ -17,6 +17,7 @@ case $1 in
     "create")
     if [ -e var/search.sqlite3 ]; then 
         echo "Error: database already exists"
+        exit 1
     else
         set -x
         mkdir -p var/
