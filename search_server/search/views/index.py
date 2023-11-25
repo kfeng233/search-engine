@@ -30,6 +30,8 @@ def show_index():
                 if docs:
                     for doc in docs:
                         doc['score'] = res['score']
+                        if doc['summary'] == '':
+                            doc['summary'] = 'No summary available'
                     with lock:
                         total_results.append(docs)
 
@@ -40,9 +42,11 @@ def show_index():
         t.start()
     for thread in threads:
         thread.join()
-    flat_documents = [doc for sublist in total_results for doc in sublist]
-    merged_documents = heapq.merge(flat_documents, key=lambda d: d['score'], reverse=True)
+    #flat_documents = [doc for sublist in total_results for doc in sublist]
+    merged_documents = heapq.merge(*total_results, key=lambda d: d['score'], reverse=True)
     result_list = list(merged_documents)[:10]
+    for i in result_list:
+        print(i['score'])
     context = {"documents": result_list, "text": text, "range": slider}
     return flask.render_template("index.html", **context)
 
