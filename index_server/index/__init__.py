@@ -1,3 +1,4 @@
+"""package initializer."""
 import os
 import flask
 
