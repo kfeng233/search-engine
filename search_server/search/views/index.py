@@ -15,7 +15,7 @@ def show_index():
     total_results = []
     lock = threading.Lock()
     text = flask.request.args.get('q', '')
-    slider = flask.request.args.get('w', '')
+    slider = flask.request.args.get('w', 0.5)
 
     def worker(url, text, slider):
         with search.app.app_context():
