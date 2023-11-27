@@ -1,6 +1,7 @@
 """REST API for index server."""
 import flask
 import index
+import re
 import math
 
 
@@ -18,6 +19,8 @@ def services():
 def hits():
     query = flask.request.args.get("q", default="", type=str)
     weight = flask.request.args.get("w", default=0.5, type=float)
+    query = re.sub(r"[^a-zA-Z0-9 ]+", "", query)
+    query = str.casefold(query)
     query = query.split()
     query = [word for word in query if word not in index.api.dic['stopwords']]
     terms = {}
@@ -30,6 +33,7 @@ def hits():
     init = False
     for term in terms:
         if term not in index.api.dic['index']:
+            print(term)
             return flask.jsonify(**{"hits":[]}), 200
         elif float(index.api.dic['index'][term][1]) == 0.0:
             del terms[term]
@@ -59,7 +63,6 @@ def hits():
         
         _docs[doc]['pagerank'] = (float(index.api.dic['pagerank'][doc]))
         
-
     scores = {}
     for doc in _docs:
         tf_idf = 0.0
@@ -71,7 +74,7 @@ def hits():
         score = weight*_docs[doc]['pagerank'] + (1.0-weight)*tf_idf
         scores[doc] = score
     hits = []
-    for w in sorted(scores, key=scores.get):
-        hits.append({"docid":w, "score":scores[w]})
+    for key, val in sorted(scores.items(), key=lambda x: x[1],reverse=True):
+        hits.append({"docid":int(key), "score":val})
     context = {"hits":hits}
     return flask.jsonify(**context), 200
