@@ -35,7 +35,7 @@ def hits():
         if term not in index.api.dic['index']:
             print(term)
             return flask.jsonify(**{"hits":[]}), 200
-        elif float(index.api.dic['index'][term][1]) == 0.0:
+        elif float(index.api.dic['index'][term][1]) == 0.0: # idf == 0.0
             del terms[term]
         else:
             rec = index.api.dic['index'][term]

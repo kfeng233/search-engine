@@ -17,4 +17,5 @@ def load_index():
         for line in f:
             temp = line.split()
             dic['index'][temp[0]] = temp
+            # dic['index']['term'] = 'term idf doc_id tf |d| ...'
     
