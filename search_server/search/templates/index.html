@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <div class="ask485">ask485?</div>
+    <title><div class="ask485">ask485?</div></title>
 </head>
 <body>
     <div class="docs">
@@ -20,7 +20,7 @@
     {% if documents %}
         {% for document in documents %}
             <a class="doc_url" href="{{document.url}}">{{document.url}}</a>
-            <div class="doc_title" href="{{document.url}}">{{document.title}}</div>
+            <div class="doc_title">{{document.title}}</div>
             <div class="doc_summary">{{document.summary}}</div>
         {% endfor %}
     {% else %}
