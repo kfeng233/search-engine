@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Map 1."""
 import pathlib
 import re
 import sys
@@ -28,9 +29,8 @@ for line in sys.stdin:
     text = re.sub(r"[^a-zA-Z0-9 ]+", "", text)
     text = str.casefold(text)
     terms = text.split()
-    
     stopwords = []
-    with open('stopwords.txt', 'r') as f:
+    with open('stopwords.txt', 'r', encoding="utf-8") as f:
         stopwords = f.read().split()
 
     terms = [term for term in terms if term not in stopwords]

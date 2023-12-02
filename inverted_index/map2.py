@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import pathlib
-import re
+"""Map 2."""
 import sys
 
 # <(term, doc_id, tf), #,#,#>
